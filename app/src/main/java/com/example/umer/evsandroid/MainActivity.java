@@ -1,5 +1,8 @@
 package com.example.umer.evsandroid;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,18 +34,32 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Contact> fillContactsList()
     {
+
+
         ArrayList<Contact> ls=new ArrayList<Contact>();
-        Contact c1=new Contact();
-        c1.setName("Shahmeer");
-        c1.setName("03001123456");
+        /* Code To Query Data From Contact App of Phone*/
+        ContentResolver contentResolver=this.getContentResolver();
+        Cursor   cursor=contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,null,null,null);
 
-        ls.add(c1);
+        cursor.moveToFirst();
 
-        Contact c2=new Contact();
-        c1.setName("ABC");
-        c1.setName("03001124564");
+        while (!cursor.isAfterLast())
+        {
+            /* Contact extraction logic goes here*/
 
-        ls.add(c2);
+            Contact c1=new Contact();
+            c1.setName(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
+            c1.setPhoneNo(cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
+
+
+            ls.add(c1);
+
+            cursor.moveToNext();
+        }
+       // cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+
+
+
 
 
         return  ls;
