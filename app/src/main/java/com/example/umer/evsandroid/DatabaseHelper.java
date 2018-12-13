@@ -86,7 +86,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_NAME,
                 new String[]{COLUMN_ID, COLUMN_PHONE},
                 COLUMN_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
+                new String[]{String.valueOf(id)},
+                null,
+                null,
+                null,
+                null);
 
         if (cursor != null)
             cursor.moveToFirst();
@@ -104,8 +108,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return contact;
     }
 
-    public List<Contact> getAllContacts() {
-        List<Contact> contacts = new ArrayList<>();
+    public ArrayList<Contact> getAllContacts() {
+        ArrayList<Contact> contacts = new ArrayList<>();
 
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_NAME;

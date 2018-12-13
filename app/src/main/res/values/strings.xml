@@ -2,5 +2,6 @@
     <string name="app_name">evsandroid</string>
     <string name="title_activity_splash">splash</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_my_db_contcats">MyDbContcats</string>
 
 </resources>

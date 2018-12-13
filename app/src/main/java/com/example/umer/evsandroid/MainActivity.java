@@ -1,8 +1,11 @@
 package com.example.umer.evsandroid;
 
 import android.content.ContentResolver;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.provider.ContactsContract;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,21 +20,69 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    ArrayList<Contact> myArrayListOfContacts;
+    DatabaseHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button btn=findViewById(R.id.mybtn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getApplicationContext(),MyDbContcats.class);
+                startActivity(i);
+            }
+        });
+        db=new DatabaseHelper(getBaseContext());
         RecyclerView myrcv=findViewById(R.id.myrcv);
-        ArrayList<Contact> myArrayListOfContacts=fillContactsList();
+        myArrayListOfContacts=fillContactsList();
         ContactAdaptor myAdaptor=new ContactAdaptor(myArrayListOfContacts);
         myrcv.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         myrcv.setAdapter(myAdaptor);
+        myrcv.addOnItemTouchListener(new RecyclerTouchListener(this,
+                myrcv, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, final int position) {
+                Toast.makeText(getApplicationContext(),"Clicked "+myArrayListOfContacts.get(position).getName(),Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                showActionsDialog(position);
+                Toast.makeText(getApplicationContext(),"Long Clicked "+myArrayListOfContacts.get(position).getName(),Toast.LENGTH_LONG).show();
+
+            }
+        }));
        // myrcv.setAdapter(new ContactAdaptor(fillContactsList()));
 
 
     }
 
+
+    private void showActionsDialog(final int position) {
+        CharSequence options[] = new CharSequence[]{"Add to DB", "Cancle"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose option");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int optionPressed) {
+                if (optionPressed == 0) {
+
+                    Contact contact=myArrayListOfContacts.get(position);
+
+                    db.insertContact(contact.getPhoneNo(),contact.getName());
+                    Toast.makeText(getApplicationContext(),"Inserted",Toast.LENGTH_LONG).show();
+
+                } else {
+
+                }
+            }
+        });
+        builder.show();
+    }
 
     ArrayList<Contact> fillContactsList()
     {
