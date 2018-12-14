@@ -1,10 +1,13 @@
 package com.example.umer.evsandroid;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Contact> myArrayListOfContacts;
     DatabaseHelper db;
+    RecyclerView myrcv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         db=new DatabaseHelper(getBaseContext());
-        RecyclerView myrcv=findViewById(R.id.myrcv);
+        myrcv=findViewById(R.id.myrcv);
         myArrayListOfContacts=fillContactsList();
         ContactAdaptor myAdaptor=new ContactAdaptor(myArrayListOfContacts);
         myrcv.setLayoutManager(new LinearLayoutManager(getBaseContext()));
@@ -55,12 +59,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }));
-       // myrcv.setAdapter(new ContactAdaptor(fillContactsList()));
+        // myrcv.setAdapter(new ContactAdaptor(fillContactsList()));
+
+
+
+
 
 
     }
 
 
+    
     private void showActionsDialog(final int position) {
         CharSequence options[] = new CharSequence[]{"Add to DB", "Cancle"};
 
