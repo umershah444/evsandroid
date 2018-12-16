@@ -26,7 +26,7 @@
             android:label="@string/title_activity_login" />
         <activity
             android:name=".MyDbContcats"
-            android:label="@string/title_activity_my_db_contcats"></activity>
+            android:label="@string/title_activity_my_db_contcats" />
     </application>
 
 </manifest>

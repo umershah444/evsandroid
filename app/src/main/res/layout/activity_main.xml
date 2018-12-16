@@ -4,16 +4,15 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-
-<Button
+<android.support.design.widget.TabLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Open Db Contacts"
-    android:id="@+id/mybtn"
-    />
-<android.support.v7.widget.RecyclerView
-    android:id="@+id/myrcv"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    android:id="@+id/mytablayout"
+    ></android.support.design.widget.TabLayout>
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/myviewpager"
+        ></android.support.v4.view.ViewPager>
+
 </LinearLayout>
