@@ -5,6 +5,13 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONObject;
+
 public class splash extends Activity {
 
 
@@ -18,7 +25,9 @@ public class splash extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i=new Intent(getApplicationContext(),MainActivity.class);
+
+
+                Intent i=new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(i);
                 finish();
             }

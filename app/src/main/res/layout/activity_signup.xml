@@ -5,6 +5,7 @@
     android:background="@drawable/loginbg"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="155dp"
@@ -19,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:drawableLeft="@mipmap/ic_user"
+        android:id="@+id/etusername"
         android:hint="Username" />
 
     <EditText
@@ -28,6 +30,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="145dp"
         android:drawableLeft="@mipmap/ic_user"
+        android:id="@+id/etpassword"
         android:hint="Password" />
 
     <Button
@@ -37,12 +40,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
         android:background="@color/green"
-        android:text="Login" />
+        android:id="@+id/signupbtn"
+        android:text="Signup" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Go To Signup"
-        android:id="@+id/gotosignup"
+        android:id="@+id/gotosignin"
         />
 </RelativeLayout>
