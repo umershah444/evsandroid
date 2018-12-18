@@ -42,6 +42,15 @@ public class ContactsFragment extends Fragment{
         db=new DatabaseHelper(getContext());
         myrcv=v.findViewById(R.id.myrcv);
 
+
+        Button btn=v.findViewById(R.id.logoutbtn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserSession userSession=new UserSession(getActivity());
+                userSession.logoutUser();
+            }
+        });
         myArrayListOfContacts=db.getAllContacts();//fillContactsList();
         ContactAdaptor myAdaptor=new ContactAdaptor(myArrayListOfContacts);
         myrcv.setLayoutManager(new LinearLayoutManager(getContext()));

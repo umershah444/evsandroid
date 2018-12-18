@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.provider.ContactsContract;
@@ -35,6 +36,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+      /*  SharedPreferences sharedPreferences=this.getSharedPreferences("mysp",0);
+        SharedPreferences.Editor myEditor=sharedPreferences.edit();
+        myEditor.putString("user_name","abc");
+
+        myEditor.commit();
+        myEditor.clear();
+
+        sharedPreferences.getString("user_name","nothing");
+*/
+
+
         tabLayout=findViewById(R.id.mytablayout);
         viewPager=findViewById(R.id.myviewpager);
         viewPagerAdaptor=new MyViewPagerAdaptor(getSupportFragmentManager(),new ArrayList<Fragment>(),new ArrayList<String>());

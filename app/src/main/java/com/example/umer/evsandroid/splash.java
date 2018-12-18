@@ -26,12 +26,18 @@ public class splash extends Activity {
             @Override
             public void run() {
 
+                UserSession userSession=new UserSession(splash.this);
+               if(!userSession.checkLogin())
+               {
 
-                Intent i=new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(i);
-                finish();
+                   Intent i=new Intent(getApplicationContext(),MainActivity.class);
+                   startActivity(i);
+                   finish();
+               }
+
+
             }
-        },4000);
+        },2000);
 
 
 

@@ -7,12 +7,12 @@
 
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="155dp"
+        android:layout_width="160dp"
+        android:layout_height="112dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="95dp"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="86dp"
         android:src="@drawable/user" />
 
     <EditText
@@ -34,19 +34,23 @@
         android:hint="Password" />
 
     <Button
+        android:id="@+id/signupbtn"
         android:layout_width="123dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:background="@color/green"
-        android:id="@+id/signupbtn"
+        android:layout_marginBottom="75dp"
+        android:background="@color/grey"
         android:text="Signup" />
 
     <Button
+        android:id="@+id/gotosignin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go To Signup"
-        android:id="@+id/gotosignin"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:background="@null"
+        android:textColor="#FFFFFF"
+        android:text="Already have account? Signin here" />
 </RelativeLayout>

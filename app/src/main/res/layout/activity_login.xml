@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:drawableLeft="@mipmap/ic_user"
+        android:id="@+id/etuname"
         android:hint="Username" />
 
     <EditText
@@ -28,21 +29,26 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="145dp"
         android:drawableLeft="@mipmap/ic_user"
+        android:id="@+id/etpasswordi"
         android:hint="Password" />
 
     <Button
+        android:id="@+id/loginbtn"
         android:layout_width="123dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/gotosignup"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:background="@color/green"
+        android:background="@color/grey"
         android:text="Login" />
 
     <Button
+        android:id="@+id/gotosignup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go To Signup"
-        android:id="@+id/gotosignup"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
+        android:background="@null"
+        android:text="Don't have account? Signup here"
+        android:textColor="#FFFFFF" />
 </RelativeLayout>

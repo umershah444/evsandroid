@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SignupActivity extends Activity {
@@ -43,6 +44,7 @@ public class SignupActivity extends Activity {
                 String user_name=username.getText().toString();
                 String _password=password.getText().toString();
                 String url="http://belockchain.com/api/signup.php?user_name="+user_name+"&password="+_password;
+
                 JsonObjectRequest jsonObjectRequest=
                         new JsonObjectRequest(
                                 Request.Method.GET,
@@ -51,8 +53,9 @@ public class SignupActivity extends Activity {
                                 new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject response) {
+                                        Intent i = new Intent(SignupActivity.this,LoginActivity.class);
+                                        startActivity(i);
 
-                                        Toast.makeText(SignupActivity.this,response.toString(),Toast.LENGTH_LONG).show();
                                     }
                                 }, new Response.ErrorListener() {
                             @Override
