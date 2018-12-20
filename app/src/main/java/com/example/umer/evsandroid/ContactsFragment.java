@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -26,11 +27,15 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
+
 public class ContactsFragment extends Fragment{
 
     ArrayList<Contact> myArrayListOfContacts;
     DatabaseHelper db;
     RecyclerView myrcv;
+    ContactAdaptor myAdaptor;
+    private int temp=0;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,16 +48,15 @@ public class ContactsFragment extends Fragment{
         myrcv=v.findViewById(R.id.myrcv);
 
 
-        Button btn=v.findViewById(R.id.logoutbtn);
+        /*Button btn=v.findViewById(R.id.logoutbtn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserSession userSession=new UserSession(getActivity());
-                userSession.logoutUser();
+
             }
-        });
+        });*/
         myArrayListOfContacts=db.getAllContacts();//fillContactsList();
-        ContactAdaptor myAdaptor=new ContactAdaptor(myArrayListOfContacts);
+         myAdaptor=new ContactAdaptor(myArrayListOfContacts);
         myrcv.setLayoutManager(new LinearLayoutManager(getContext()));
         myrcv.setAdapter(myAdaptor);
         myrcv.addOnItemTouchListener(new RecyclerTouchListener(getContext(),
@@ -65,7 +69,7 @@ public class ContactsFragment extends Fragment{
             @Override
             public void onLongClick(View view, int position) {
                 showActionsDialog(position);
-                Toast.makeText(getContext(),"Long Clicked "+myArrayListOfContacts.get(position).getName(),Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(),"Long Clicked "+myArrayListOfContacts.get(position).getName(),Toast.LENGTH_LONG).show();
 
             }
         }));
@@ -115,7 +119,7 @@ db.getAllContacts()
         }
     }
     private void showActionsDialog(final int position) {
-        CharSequence options[] = new CharSequence[]{"Add to DB", "Cancle"};
+        CharSequence options[] = new CharSequence[]{"Add to DB", "Cancle","Add Image","Call"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Choose option");
@@ -129,12 +133,47 @@ db.getAllContacts()
                     db.insertContact(contact.getPhoneNo(),contact.getName());
                     Toast.makeText(getContext(),"Inserted",Toast.LENGTH_LONG).show();
 
-                } else {
+                } else if (optionPressed == 2){
 
+                    Intent intent=new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    intent.putExtra("position",position);
+                    temp=position;
+                    startActivityForResult(intent,1);
+                }else if (optionPressed == 3)
+                {
+                    Intent i=new Intent();
+                    i.setAction(Intent.ACTION_CALL);
+
+                    Contact contact=myArrayListOfContacts.get(position);
+                    i.setData(Uri.parse("tel:"+contact.getPhoneNo()));
+                    startActivity(i);
+                }else if(optionPressed==4)
+                {
+
+                    Intent i=new Intent();
+                    i.setAction(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+
+
+                    startActivityForResult(i,2);
                 }
             }
         });
         builder.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==1&&resultCode==RESULT_OK&&data!=null&&data.getData()!=null)
+        {
+            int position=temp;//data.getIntExtra("position",position);
+            myArrayListOfContacts.get(position).setImageUrl(data.getData());
+
+            myAdaptor.notifyDataSetChanged();
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     ArrayList<Contact> fillContactsList()
@@ -152,7 +191,7 @@ db.getAllContacts()
             while (!cursor.isAfterLast()) {
                 /* Contact extraction logic goes here*/
 
-                Contact c1 = new Contact();
+                Contact c1 = new Contact(getContext());
                 c1.setName(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
                 c1.setPhoneNo(cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
 

@@ -1,17 +1,28 @@
 package com.example.umer.evsandroid;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.net.Uri;
+
 public class Contact {
     private String Name;
     private  String PhoneNo;
-    private  String ImageUrl;
+    private Uri ImageUrl;
 
-    public Contact()
+    public Contact(Context context)
     {
 
+        ImageUrl = (new Uri.Builder())
+                .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+                .authority(context.getResources().getResourcePackageName(R.drawable.user))
+                .appendPath(context.getResources().getResourceTypeName(R.drawable.user))
+                .appendPath(context.getResources().getResourceEntryName(R.drawable.user))
+                .build();
 
+        //ImageUrl=Uri.parse("@mipmap/ic_launcher_round");
     }
 
-    public Contact(String _name,String _phoneno,String _imageurl)
+    public Contact(String _name,String _phoneno,Uri _imageurl)
     {
 
         setName(_name);
@@ -37,11 +48,11 @@ public class Contact {
         PhoneNo = phoneNo;
     }
 
-    public String getImageUrl() {
+    public Uri getImageUrl() {
         return ImageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(Uri imageUrl) {
         ImageUrl = imageUrl;
     }
 }

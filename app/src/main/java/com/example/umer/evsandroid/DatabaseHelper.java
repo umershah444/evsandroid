@@ -17,6 +17,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Database Name
     private static final String DATABASE_NAME = "contacts_db";
 
+    public Context context;
 
     public static final String TABLE_NAME = "contacts";
 
@@ -34,7 +35,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String CREATE_TABLE="CREATE TABLE contacts (_id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,phone TEXT,imageurl TEXT)";
     public DatabaseHelper(Context context) {
+
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context=context;
     }
 
     // Creating Tables
@@ -96,7 +99,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         // prepare contact object
-        Contact contact = new Contact();
+        Contact contact = new Contact(this.context);
 
         contact.setPhoneNo(cursor.getString(cursor.getColumnIndex(COLUMN_PHONE)));
         contact.setName(cursor.getString(cursor.getColumnIndex(COLUMN_NAME)));
@@ -121,7 +124,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Contact contact = new Contact();
+                Contact contact = new Contact(this.context);
 
                 contact.setName(cursor.getString(cursor.getColumnIndex(COLUMN_NAME)));
                 contact.setPhoneNo(cursor.getString(cursor.getColumnIndex(COLUMN_PHONE)));

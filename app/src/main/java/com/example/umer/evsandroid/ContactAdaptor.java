@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class ContactAdaptor extends RecyclerView.Adapter<ContactAdaptor.ContactV
 
       public ContactAdaptor(ArrayList<Contact> list)
       {
+
 
           myContactList=list;
       }
@@ -36,6 +38,7 @@ public class ContactAdaptor extends RecyclerView.Adapter<ContactAdaptor.ContactV
        Contact contact=myContactList.get(i);
         contactViewHolder.NameTextView.setText(contact.getName());
         contactViewHolder.PhoneNoTextView.setText(contact.getPhoneNo());
+        contactViewHolder.img.setImageURI(contact.getImageUrl());
     }
 
     @Override
@@ -47,12 +50,13 @@ public class ContactAdaptor extends RecyclerView.Adapter<ContactAdaptor.ContactV
     {
 
         TextView PhoneNoTextView,NameTextView;
+        ImageView img;
 
         public ContactViewHolder(@NonNull View itemView) {
             super(itemView);
             PhoneNoTextView=itemView.findViewById(R.id.phoneno);
             NameTextView=itemView.findViewById(R.id.name);
-
+            img=itemView.findViewById(R.id.item_image);
         }
     }
 }

@@ -32,7 +32,7 @@ public class UserSession {
     public static final String KEY_EMAIL = "Email";
 
     // password
-    public static final String KEY_ID = "Password";
+    public static final String KEY_ID = "ID";
 
     public static final String KEY_PHONE = "PhoneNumber";
 

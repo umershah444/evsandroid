@@ -5,8 +5,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/item_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="8dp"
         android:src="@mipmap/ic_launcher_round" />
 
     <LinearLayout
@@ -21,7 +23,7 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:textColor="@color/blackcolor"
             android:fontFamily="monospace"
             android:text="Shahmeer"
@@ -31,7 +33,7 @@
             android:id="@+id/phoneno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:text="0331235625"/>
             </LinearLayout>
 </LinearLayout>
