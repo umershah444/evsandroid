@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -119,7 +120,7 @@ db.getAllContacts()
         }
     }
     private void showActionsDialog(final int position) {
-        CharSequence options[] = new CharSequence[]{"Add to DB", "Cancle","Add Image","Call"};
+        CharSequence options[] = new CharSequence[]{"Add to DB","Add Image","Call","Capture From Camera", "Cancel"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Choose option");
@@ -133,28 +134,26 @@ db.getAllContacts()
                     db.insertContact(contact.getPhoneNo(),contact.getName());
                     Toast.makeText(getContext(),"Inserted",Toast.LENGTH_LONG).show();
 
-                } else if (optionPressed == 2){
+                } else if (optionPressed == 1){
 
                     Intent intent=new Intent();
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
-                    intent.putExtra("position",position);
+
                     temp=position;
                     startActivityForResult(intent,1);
-                }else if (optionPressed == 3)
+                }else if (optionPressed == 2)
                 {
                     Intent i=new Intent();
-                    i.setAction(Intent.ACTION_CALL);
+                    i.setAction(Intent.ACTION_DIAL);
 
                     Contact contact=myArrayListOfContacts.get(position);
                     i.setData(Uri.parse("tel:"+contact.getPhoneNo()));
                     startActivity(i);
-                }else if(optionPressed==4)
+                }else if(optionPressed==3)
                 {
 
-                    Intent i=new Intent();
-                    i.setAction(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-
+                    Intent i=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
                     startActivityForResult(i,2);
                 }
@@ -165,6 +164,7 @@ db.getAllContacts()
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if(requestCode==1&&resultCode==RESULT_OK&&data!=null&&data.getData()!=null)
         {
             int position=temp;//data.getIntExtra("position",position);
